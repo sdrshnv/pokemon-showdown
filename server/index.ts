@@ -202,3 +202,7 @@ if (Config.ofemain) {
 		addTimestamp: true,
 	});
 }
+
+if (Config.training) {
+	require('./ai/training');
+}

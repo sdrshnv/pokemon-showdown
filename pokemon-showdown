@@ -57,11 +57,13 @@ if (!process.argv[2] || /^[0-9]+$/.test(process.argv[2])) {
 	case '-h':
 	case '--help':
 	case '-?':
-		console.log('pokemon-showdown start [--skip-build] [PORT]');
+		console.log('pokemon-showdown start [--skip-build] [--training] [--no-security] [PORT]');
 		console.log('');
 		console.log('  Starts a PS server on the specified port');
 		console.log('  (Defaults to the port setting in config/config.js)');
 		console.log('  (The port setting in config/config.js defaults to 8000)');
+		console.log('  --training: Enable training mode and execute training functions');
+		console.log('  --no-security: Disable security checks (for development)');
 		console.log('');
 		console.log('pokemon-showdown generate-team [FORMAT-ID [RANDOM-SEED]]');
 		console.log('');

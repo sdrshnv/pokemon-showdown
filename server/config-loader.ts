@@ -18,6 +18,7 @@ export type ConfigType = typeof defaults & {
 /** Map<process flag, config settings for it to turn on> */
 const FLAG_PRESETS = new Map([
 	['--no-security', ['nothrottle', 'noguestsecurity', 'noipchecks']],
+	['--training', ['training']]
 ]);
 
 const CONFIG_PATH = FS('./config/config.js').path;
