@@ -89,6 +89,7 @@ set, or action label changes the corresponding hash. Model checkpoints and repla
 data must store the schema versions and all three compatibility hashes.
 
 The generator includes all current Random Battle set species and their formes,
-all set moves and abilities, and all Gen 9/Past standard items. New Random Battle
-set data intentionally fails the vocabulary coverage test until the manifest is
-regenerated under a new schema version.
+all set moves, all Gen 9/Past standard abilities and items. The broader ability
+vocabulary is required because form changes and ability-copying effects can change
+public current ability. New Random Battle set data intentionally fails the vocabulary
+coverage test until the manifest is regenerated under a new schema version.

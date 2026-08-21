@@ -105,6 +105,9 @@ describe('Gen 9 Random Battle tensors', () => {
 				}
 			}
 		}
+		for (const ability of ['Tera Shift', 'Tera Shell', 'Teraform Zero']) {
+			assert(abilities.has(Sim.toID(ability)), `Missing form-change ability token for ${ability}`);
+		}
 	});
 
 	it('should emit tensors matching the checked-in field contract', () => {

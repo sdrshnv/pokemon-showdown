@@ -7,7 +7,7 @@ const path = require('path');
 const { Dex, toID } = require('../dist/sim/dex');
 const randomSets = require('../data/random-battles/gen9/sets.json');
 
-const SCHEMA_VERSION = 'ps-gen9-randombattle-v2';
+const SCHEMA_VERSION = 'ps-gen9-randombattle-v3';
 const EVENT_SCHEMA_VERSION = 'ps-gen9-randombattle-events-v1';
 const MAX_TEAM_SIZE = 6;
 const MAX_MOVE_SLOTS = 4;
@@ -116,13 +116,16 @@ const species = dex.species.all()
 	.filter(entry => entry.exists && randomBaseSpecies.has(entry.baseSpecies))
 	.map(entry => entry.id);
 const moves = ['struggle', 'recharge'];
-const abilities = [];
 for (const speciesData of Object.values(randomSets)) {
 	for (const set of speciesData.sets) {
 		moves.push(...set.movepool);
-		abilities.push(...set.abilities);
 	}
 }
+// Current ability is dynamic public state, not just an initial-set field. Form changes (notably
+// Terapagos) and ability-copying effects can expose standard abilities absent from sets.json.
+const abilities = dex.abilities.all()
+	.filter(ability => ability.exists && (ability.isNonstandard === null || ability.isNonstandard === 'Past'))
+	.map(ability => ability.id);
 const items = dex.items.all()
 	.filter(item => item.exists && (item.isNonstandard === null || item.isNonstandard === 'Past'))
 	.map(item => item.id);
