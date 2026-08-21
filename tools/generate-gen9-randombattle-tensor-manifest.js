@@ -7,15 +7,43 @@ const path = require('path');
 const { Dex, toID } = require('../dist/sim/dex');
 const randomSets = require('../data/random-battles/gen9/sets.json');
 
-const SCHEMA_VERSION = 'ps-gen9-randombattle-v1';
+const SCHEMA_VERSION = 'ps-gen9-randombattle-v2';
+const EVENT_SCHEMA_VERSION = 'ps-gen9-randombattle-events-v1';
 const MAX_TEAM_SIZE = 6;
 const MAX_MOVE_SLOTS = 4;
 const BOOST_IDS = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion'];
+const STAT_IDS = ['atk', 'def', 'spa', 'spd', 'spe'];
 const PSEUDOWEATHER_IDS = ['trickroom', 'gravity', 'magicroom', 'wonderroom'];
 const SIDE_CONDITION_IDS = [
 	'stealthrock', 'spikes', 'toxicspikes', 'stickyweb',
 	'reflect', 'lightscreen', 'auroraveil', 'tailwind',
 	'safeguard', 'mist', 'luckychant',
+];
+
+// Commands are deliberately classified in the checked-in contract. Consumers can run the
+// observation tracker in strict mode to fail closed when the simulator starts emitting a
+// protocol command which has not been audited for player visibility and training semantics.
+const STATE_EVENT_COMMANDS = [
+	'request', 'turn', 'win', 'tie', 'switch', 'drag', 'replace', 'detailschange', 'faint',
+	'-damage', '-heal', '-sethp', '-status', '-curestatus', '-cureteam',
+	'-boost', '-unboost', '-setboost', '-clearboost', '-clearpositiveboost',
+	'-clearnegativeboost', '-clearallboost', '-swapboost', '-copyboost', '-invertboost',
+	'-item', '-enditem', '-ability', '-endability', '-terastallize', '-transform', '-formechange',
+	'-start', '-end', '-singlemove', '-singleturn', '-mustrecharge', '-weather',
+	'-fieldstart', '-fieldend', '-sidestart', '-sideend', '-swapsideconditions', 'upkeep',
+	'swap', 'clearpoke', 'poke', 'updatepoke',
+];
+const TRANSIENT_EVENT_COMMANDS = [
+	'move', 'cant', 'error', 'choice-rejected', '-activate', '-anim', '-block', '-burst', '-candynamax', '-center',
+	'-combine', '-crit', '-fail', '-fieldactivate', '-hitcount', '-immune', '-mega', '-miss',
+	'-notarget', '-nothing', '-ohko', '-prepare', '-primal', '-resisted', '-supereffective',
+	'-waiting', '-zbroken', '-zpower',
+];
+const COSMETIC_EVENT_COMMANDS = [
+	'', 'gen', 'gametype', 'tier', 'teamsize', 'player', 'rated', 'rule', 'start', 'teampreview',
+	'inactive', 'inactiveoff', 't:', 't', 'message', '-message', 'html', 'raw', 'j', 'join', 'l',
+	'leave', 'n', 'name', 'uhtml', 'uhtmlchange', '-hint', 'debug', 'bigerror', 'custom', 'showteam',
+	'event',
 ];
 
 function vocabulary(values) {
@@ -31,6 +59,7 @@ function vocabulary(values) {
 function pokemonLabels(prefix, continuous, categorical, binary) {
 	continuous.push(`${prefix}.hp`, `${prefix}.level`);
 	for (const boost of BOOST_IDS) continuous.push(`${prefix}.boost.${boost}`);
+	for (const stat of STAT_IDS) continuous.push(`${prefix}.stat.${stat}`);
 
 	categorical.push(
 		`${prefix}.species`, `${prefix}.ability`, `${prefix}.item`, `${prefix}.teraType`,
@@ -39,7 +68,7 @@ function pokemonLabels(prefix, continuous, categorical, binary) {
 
 	for (const field of [
 		'present', 'active', 'revealed', 'fainted', 'hpKnown', 'levelKnown', 'speciesKnown',
-		'abilityKnown', 'itemKnown', 'teraTypeKnown', 'typeKnown', 'statusKnown',
+		'abilityKnown', 'itemKnown', 'teraTypeKnown', 'typeKnown', 'statusKnown', 'statsKnown',
 	]) {
 		binary.push(`${prefix}.${field}`);
 	}
@@ -47,7 +76,10 @@ function pokemonLabels(prefix, continuous, categorical, binary) {
 	for (let i = 1; i <= MAX_MOVE_SLOTS; i++) {
 		continuous.push(`${prefix}.move${i}.pp`);
 		categorical.push(`${prefix}.move${i}.id`);
-		binary.push(`${prefix}.move${i}.present`, `${prefix}.move${i}.revealed`, `${prefix}.move${i}.disabled`);
+		binary.push(
+			`${prefix}.move${i}.present`, `${prefix}.move${i}.revealed`,
+			`${prefix}.move${i}.ppKnown`, `${prefix}.move${i}.disabled`
+		);
 	}
 }
 
@@ -57,12 +89,13 @@ function tensorFields() {
 		'you.pokemonLeft', 'you.totalFainted',
 		'foe.pokemonLeft', 'foe.totalFainted', 'foe.revealedCount',
 	];
-	const categorical = ['battle.weather', 'battle.terrain', 'battle.request'];
+	const categorical = ['battle.weather', 'battle.terrain', 'battle.request', 'battle.result'];
 	const binary = [
 		'battle.ended',
 		...PSEUDOWEATHER_IDS.map(id => `battle.pseudoWeather.${id}`),
 		'you.teraUsed', 'foe.teraUsed', 'you.canTerastallize', 'you.trapped',
 		'you.maybeTrapped', 'you.maybeDisabled', 'you.maybeLocked', 'you.noCancel',
+		'battle.needsAction', 'battle.isRetry', 'battle.isRevivalRequest',
 	];
 
 	for (const side of ['you', 'foe']) {
@@ -94,6 +127,18 @@ const items = dex.items.all()
 	.filter(item => item.exists && (item.isNonstandard === null || item.isNonstandard === 'Past'))
 	.map(item => item.id);
 
+const eventCore = {
+	schemaVersion: EVENT_SCHEMA_VERSION,
+	stateCommands: STATE_EVENT_COMMANDS,
+	transientCommands: TRANSIENT_EVENT_COMMANDS,
+	cosmeticCommands: COSMETIC_EVENT_COMMANDS,
+};
+const events = {
+	...eventCore,
+	schemaHash: crypto.createHash('sha256').update(JSON.stringify(eventCore)).digest('hex'),
+};
+const randomBattleDataHash = crypto.createHash('sha256').update(JSON.stringify(randomSets)).digest('hex');
+
 const core = {
 	schemaVersion: SCHEMA_VERSION,
 	supportedFormatIds: ['gen9randombattle'],
@@ -102,6 +147,7 @@ const core = {
 		maxTurns: 200,
 		maxDuration: 8,
 		maxSideConditionLayers: 3,
+		maxStat: 1000,
 		maxTeamSize: MAX_TEAM_SIZE,
 		maxMoveSlots: MAX_MOVE_SLOTS,
 	},
@@ -116,9 +162,15 @@ const core = {
 		]),
 		terrain: vocabulary(['electricterrain', 'grassyterrain', 'mistyterrain', 'psychicterrain']),
 		statuses: vocabulary(['brn', 'frz', 'par', 'psn', 'slp', 'tox', 'fnt']),
-		requestStates: vocabulary(['move', 'switch', 'wait']),
+		requestStates: vocabulary(['move', 'switch', 'revive', 'wait', 'retry', 'terminal']),
+		results: vocabulary(['ongoing', 'win', 'loss', 'tie']),
 	},
 	fields: tensorFields(),
+	events,
+	eventSchemaVersion: events.schemaVersion,
+	eventSchemaHash: events.schemaHash,
+	randomBattleDataHash,
+	actionCount: 14,
 	actions: [
 		'move:slot1', 'move:slot2', 'move:slot3', 'move:slot4',
 		'tera:slot1', 'tera:slot2', 'tera:slot3', 'tera:slot4',
@@ -127,7 +179,7 @@ const core = {
 	],
 };
 const schemaHash = crypto.createHash('sha256').update(JSON.stringify(core)).digest('hex');
-const manifest = { ...core, schemaHash };
+const manifest = { ...core, schemaHash, tensorSchemaHash: schemaHash };
 const output = path.resolve(__dirname, '../data/random-battles/gen9/tensor-manifest.json');
 fs.writeFileSync(output, `${JSON.stringify(manifest, null, 4)}\n`);
 console.log(`Wrote ${path.relative(process.cwd(), output)} (${schemaHash})`);

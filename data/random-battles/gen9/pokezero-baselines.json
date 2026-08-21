@@ -1,0 +1,2956 @@
+{
+    "schemaVersion": "pokezero-gen9-baselines-v1",
+    "tensorSchemaHash": "224ddd857537650e2d3dfa07cde76c6c843f156cd8ee3bd558b16eec8649f554",
+    "moves": [
+        {
+            "token": 0,
+            "id": "__none__",
+            "basePower": 0,
+            "typeToken": 1,
+            "category": "Status"
+        },
+        {
+            "token": 1,
+            "id": "__unknown__",
+            "basePower": 0,
+            "typeToken": 1,
+            "category": "Status"
+        },
+        {
+            "token": 2,
+            "id": "accelerock",
+            "basePower": 40,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 3,
+            "id": "acrobatics",
+            "basePower": 55,
+            "typeToken": 9,
+            "category": "Physical"
+        },
+        {
+            "token": 4,
+            "id": "aeroblast",
+            "basePower": 100,
+            "typeToken": 9,
+            "category": "Special"
+        },
+        {
+            "token": 5,
+            "id": "agility",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 6,
+            "id": "airslash",
+            "basePower": 75,
+            "typeToken": 9,
+            "category": "Special"
+        },
+        {
+            "token": 7,
+            "id": "alluringvoice",
+            "basePower": 80,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 8,
+            "id": "appleacid",
+            "basePower": 80,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 9,
+            "id": "aquacutter",
+            "basePower": 70,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 10,
+            "id": "aquajet",
+            "basePower": 40,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 11,
+            "id": "aquastep",
+            "basePower": 80,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 12,
+            "id": "armorcannon",
+            "basePower": 120,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 13,
+            "id": "astralbarrage",
+            "basePower": 120,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 14,
+            "id": "aurasphere",
+            "basePower": 80,
+            "typeToken": 7,
+            "category": "Special"
+        },
+        {
+            "token": 15,
+            "id": "aurawheel",
+            "basePower": 110,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 16,
+            "id": "auroraveil",
+            "basePower": 0,
+            "typeToken": 13,
+            "category": "Status"
+        },
+        {
+            "token": 17,
+            "id": "avalanche",
+            "basePower": 60,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 18,
+            "id": "beakblast",
+            "basePower": 100,
+            "typeToken": 9,
+            "category": "Physical"
+        },
+        {
+            "token": 19,
+            "id": "beatup",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 20,
+            "id": "behemothblade",
+            "basePower": 100,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 21,
+            "id": "bellydrum",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 22,
+            "id": "bite",
+            "basePower": 60,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 23,
+            "id": "bitterblade",
+            "basePower": 90,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 24,
+            "id": "bittermalice",
+            "basePower": 75,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 25,
+            "id": "bleakwindstorm",
+            "basePower": 100,
+            "typeToken": 9,
+            "category": "Special"
+        },
+        {
+            "token": 26,
+            "id": "blizzard",
+            "basePower": 110,
+            "typeToken": 13,
+            "category": "Special"
+        },
+        {
+            "token": 27,
+            "id": "bloodmoon",
+            "basePower": 140,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 28,
+            "id": "blueflare",
+            "basePower": 130,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 29,
+            "id": "bodypress",
+            "basePower": 80,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 30,
+            "id": "bodyslam",
+            "basePower": 85,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 31,
+            "id": "boltstrike",
+            "basePower": 130,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 32,
+            "id": "boomburst",
+            "basePower": 140,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 33,
+            "id": "bravebird",
+            "basePower": 120,
+            "typeToken": 9,
+            "category": "Physical"
+        },
+        {
+            "token": 34,
+            "id": "brickbreak",
+            "basePower": 75,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 35,
+            "id": "bugbite",
+            "basePower": 60,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 36,
+            "id": "bugbuzz",
+            "basePower": 90,
+            "typeToken": 2,
+            "category": "Special"
+        },
+        {
+            "token": 37,
+            "id": "bulkup",
+            "basePower": 0,
+            "typeToken": 7,
+            "category": "Status"
+        },
+        {
+            "token": 38,
+            "id": "bulletpunch",
+            "basePower": 40,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 39,
+            "id": "bulletseed",
+            "basePower": 25,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 40,
+            "id": "calmmind",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 41,
+            "id": "ceaselessedge",
+            "basePower": 65,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 42,
+            "id": "chillyreception",
+            "basePower": 0,
+            "typeToken": 13,
+            "category": "Status"
+        },
+        {
+            "token": 43,
+            "id": "circlethrow",
+            "basePower": 60,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 44,
+            "id": "clangingscales",
+            "basePower": 110,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 45,
+            "id": "clangoroussoul",
+            "basePower": 0,
+            "typeToken": 4,
+            "category": "Status"
+        },
+        {
+            "token": 46,
+            "id": "clearsmog",
+            "basePower": 50,
+            "typeToken": 15,
+            "category": "Special"
+        },
+        {
+            "token": 47,
+            "id": "closecombat",
+            "basePower": 120,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 48,
+            "id": "coil",
+            "basePower": 0,
+            "typeToken": 15,
+            "category": "Status"
+        },
+        {
+            "token": 49,
+            "id": "collisioncourse",
+            "basePower": 100,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 50,
+            "id": "cosmicpower",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 51,
+            "id": "courtchange",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 52,
+            "id": "crabhammer",
+            "basePower": 100,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 53,
+            "id": "crunch",
+            "basePower": 80,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 54,
+            "id": "curse",
+            "basePower": 0,
+            "typeToken": 10,
+            "category": "Status"
+        },
+        {
+            "token": 55,
+            "id": "darkpulse",
+            "basePower": 80,
+            "typeToken": 3,
+            "category": "Special"
+        },
+        {
+            "token": 56,
+            "id": "dazzlinggleam",
+            "basePower": 80,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 57,
+            "id": "defog",
+            "basePower": 0,
+            "typeToken": 9,
+            "category": "Status"
+        },
+        {
+            "token": 58,
+            "id": "destinybond",
+            "basePower": 0,
+            "typeToken": 10,
+            "category": "Status"
+        },
+        {
+            "token": 59,
+            "id": "diamondstorm",
+            "basePower": 100,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 60,
+            "id": "direclaw",
+            "basePower": 80,
+            "typeToken": 15,
+            "category": "Physical"
+        },
+        {
+            "token": 61,
+            "id": "discharge",
+            "basePower": 80,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 62,
+            "id": "doubleedge",
+            "basePower": 120,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 63,
+            "id": "doubleshock",
+            "basePower": 120,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 64,
+            "id": "dracometeor",
+            "basePower": 130,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 65,
+            "id": "dragonascent",
+            "basePower": 120,
+            "typeToken": 9,
+            "category": "Physical"
+        },
+        {
+            "token": 66,
+            "id": "dragonclaw",
+            "basePower": 80,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 67,
+            "id": "dragondance",
+            "basePower": 0,
+            "typeToken": 4,
+            "category": "Status"
+        },
+        {
+            "token": 68,
+            "id": "dragondarts",
+            "basePower": 50,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 69,
+            "id": "dragonenergy",
+            "basePower": 150,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 70,
+            "id": "dragonpulse",
+            "basePower": 85,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 71,
+            "id": "dragontail",
+            "basePower": 60,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 72,
+            "id": "drainingkiss",
+            "basePower": 50,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 73,
+            "id": "drainpunch",
+            "basePower": 75,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 74,
+            "id": "drillrun",
+            "basePower": 80,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 75,
+            "id": "dualwingbeat",
+            "basePower": 40,
+            "typeToken": 9,
+            "category": "Physical"
+        },
+        {
+            "token": 76,
+            "id": "dynamaxcannon",
+            "basePower": 100,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 77,
+            "id": "dynamicpunch",
+            "basePower": 100,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 78,
+            "id": "earthpower",
+            "basePower": 90,
+            "typeToken": 12,
+            "category": "Special"
+        },
+        {
+            "token": 79,
+            "id": "earthquake",
+            "basePower": 100,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 80,
+            "id": "electrodrift",
+            "basePower": 100,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 81,
+            "id": "encore",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 82,
+            "id": "endeavor",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 83,
+            "id": "energyball",
+            "basePower": 90,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 84,
+            "id": "eruption",
+            "basePower": 150,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 85,
+            "id": "esperwing",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 86,
+            "id": "expandingforce",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 87,
+            "id": "explosion",
+            "basePower": 250,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 88,
+            "id": "extremespeed",
+            "basePower": 80,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 89,
+            "id": "facade",
+            "basePower": 70,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 90,
+            "id": "fakeout",
+            "basePower": 40,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 91,
+            "id": "ficklebeam",
+            "basePower": 80,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 92,
+            "id": "fierydance",
+            "basePower": 80,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 93,
+            "id": "fierywrath",
+            "basePower": 90,
+            "typeToken": 3,
+            "category": "Special"
+        },
+        {
+            "token": 94,
+            "id": "filletaway",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 95,
+            "id": "fireblast",
+            "basePower": 110,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 96,
+            "id": "firefang",
+            "basePower": 65,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 97,
+            "id": "firepunch",
+            "basePower": 75,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 98,
+            "id": "firstimpression",
+            "basePower": 90,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 99,
+            "id": "flamecharge",
+            "basePower": 50,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 100,
+            "id": "flamethrower",
+            "basePower": 90,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 101,
+            "id": "flareblitz",
+            "basePower": 120,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 102,
+            "id": "flashcannon",
+            "basePower": 80,
+            "typeToken": 18,
+            "category": "Special"
+        },
+        {
+            "token": 103,
+            "id": "fleurcannon",
+            "basePower": 130,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 104,
+            "id": "flipturn",
+            "basePower": 60,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 105,
+            "id": "flowertrick",
+            "basePower": 70,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 106,
+            "id": "focusblast",
+            "basePower": 120,
+            "typeToken": 7,
+            "category": "Special"
+        },
+        {
+            "token": 107,
+            "id": "focuspunch",
+            "basePower": 150,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 108,
+            "id": "foulplay",
+            "basePower": 95,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 109,
+            "id": "freezedry",
+            "basePower": 70,
+            "typeToken": 13,
+            "category": "Special"
+        },
+        {
+            "token": 110,
+            "id": "freezingglare",
+            "basePower": 90,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 111,
+            "id": "fusionbolt",
+            "basePower": 100,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 112,
+            "id": "fusionflare",
+            "basePower": 100,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 113,
+            "id": "futuresight",
+            "basePower": 120,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 114,
+            "id": "gigadrain",
+            "basePower": 75,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 115,
+            "id": "gigaimpact",
+            "basePower": 150,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 116,
+            "id": "gigatonhammer",
+            "basePower": 160,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 117,
+            "id": "glaciallance",
+            "basePower": 120,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 118,
+            "id": "glaiverush",
+            "basePower": 120,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 119,
+            "id": "glare",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 120,
+            "id": "grassknot",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 121,
+            "id": "grassyglide",
+            "basePower": 55,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 122,
+            "id": "gravapple",
+            "basePower": 80,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 123,
+            "id": "gunkshot",
+            "basePower": 120,
+            "typeToken": 15,
+            "category": "Physical"
+        },
+        {
+            "token": 124,
+            "id": "haze",
+            "basePower": 0,
+            "typeToken": 13,
+            "category": "Status"
+        },
+        {
+            "token": 125,
+            "id": "headbutt",
+            "basePower": 70,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 126,
+            "id": "headlongrush",
+            "basePower": 120,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 127,
+            "id": "headsmash",
+            "basePower": 150,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 128,
+            "id": "healbell",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 129,
+            "id": "healingwish",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 130,
+            "id": "heatcrash",
+            "basePower": 0,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 131,
+            "id": "heatwave",
+            "basePower": 95,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 132,
+            "id": "heavyslam",
+            "basePower": 0,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 133,
+            "id": "hex",
+            "basePower": 65,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 134,
+            "id": "highhorsepower",
+            "basePower": 95,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 135,
+            "id": "highjumpkick",
+            "basePower": 130,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 136,
+            "id": "hornleech",
+            "basePower": 75,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 137,
+            "id": "hurricane",
+            "basePower": 110,
+            "typeToken": 9,
+            "category": "Special"
+        },
+        {
+            "token": 138,
+            "id": "hydropump",
+            "basePower": 110,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 139,
+            "id": "hydrosteam",
+            "basePower": 80,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 140,
+            "id": "hyperspacefury",
+            "basePower": 100,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 141,
+            "id": "hypervoice",
+            "basePower": 90,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 142,
+            "id": "hypnosis",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 143,
+            "id": "icebeam",
+            "basePower": 90,
+            "typeToken": 13,
+            "category": "Special"
+        },
+        {
+            "token": 144,
+            "id": "icefang",
+            "basePower": 65,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 145,
+            "id": "icehammer",
+            "basePower": 100,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 146,
+            "id": "icepunch",
+            "basePower": 75,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 147,
+            "id": "iceshard",
+            "basePower": 40,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 148,
+            "id": "icespinner",
+            "basePower": 80,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 149,
+            "id": "iciclecrash",
+            "basePower": 85,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 150,
+            "id": "iciclespear",
+            "basePower": 25,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 151,
+            "id": "irondefense",
+            "basePower": 0,
+            "typeToken": 18,
+            "category": "Status"
+        },
+        {
+            "token": 152,
+            "id": "ironhead",
+            "basePower": 80,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 153,
+            "id": "irontail",
+            "basePower": 100,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 154,
+            "id": "ivycudgel",
+            "basePower": 100,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 155,
+            "id": "jetpunch",
+            "basePower": 60,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 156,
+            "id": "judgment",
+            "basePower": 100,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 157,
+            "id": "knockoff",
+            "basePower": 65,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 158,
+            "id": "kowtowcleave",
+            "basePower": 85,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 159,
+            "id": "lashout",
+            "basePower": 75,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 160,
+            "id": "lavaplume",
+            "basePower": 80,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 161,
+            "id": "leafblade",
+            "basePower": 90,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 162,
+            "id": "leafstorm",
+            "basePower": 130,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 163,
+            "id": "leechlife",
+            "basePower": 80,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 164,
+            "id": "leechseed",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 165,
+            "id": "lightscreen",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 166,
+            "id": "liquidation",
+            "basePower": 85,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 167,
+            "id": "lowkick",
+            "basePower": 0,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 168,
+            "id": "luminacrash",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 169,
+            "id": "lunge",
+            "basePower": 80,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 170,
+            "id": "lusterpurge",
+            "basePower": 95,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 171,
+            "id": "machpunch",
+            "basePower": 40,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 172,
+            "id": "magmastorm",
+            "basePower": 100,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 173,
+            "id": "magnetrise",
+            "basePower": 0,
+            "typeToken": 5,
+            "category": "Status"
+        },
+        {
+            "token": 174,
+            "id": "makeitrain",
+            "basePower": 120,
+            "typeToken": 18,
+            "category": "Special"
+        },
+        {
+            "token": 175,
+            "id": "malignantchain",
+            "basePower": 100,
+            "typeToken": 15,
+            "category": "Special"
+        },
+        {
+            "token": 176,
+            "id": "matchagotcha",
+            "basePower": 80,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 177,
+            "id": "megahorn",
+            "basePower": 120,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 178,
+            "id": "meteorbeam",
+            "basePower": 120,
+            "typeToken": 17,
+            "category": "Special"
+        },
+        {
+            "token": 179,
+            "id": "meteormash",
+            "basePower": 90,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 180,
+            "id": "mightycleave",
+            "basePower": 95,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 181,
+            "id": "milkdrink",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 182,
+            "id": "mirrorcoat",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 183,
+            "id": "moonblast",
+            "basePower": 95,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 184,
+            "id": "moongeistbeam",
+            "basePower": 100,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 185,
+            "id": "moonlight",
+            "basePower": 0,
+            "typeToken": 6,
+            "category": "Status"
+        },
+        {
+            "token": 186,
+            "id": "morningsun",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 187,
+            "id": "mortalspin",
+            "basePower": 30,
+            "typeToken": 15,
+            "category": "Physical"
+        },
+        {
+            "token": 188,
+            "id": "muddywater",
+            "basePower": 90,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 189,
+            "id": "mudshot",
+            "basePower": 55,
+            "typeToken": 12,
+            "category": "Special"
+        },
+        {
+            "token": 190,
+            "id": "mysticalfire",
+            "basePower": 75,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 191,
+            "id": "nastyplot",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Status"
+        },
+        {
+            "token": 192,
+            "id": "nightshade",
+            "basePower": 0,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 193,
+            "id": "nightslash",
+            "basePower": 70,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 194,
+            "id": "noretreat",
+            "basePower": 0,
+            "typeToken": 7,
+            "category": "Status"
+        },
+        {
+            "token": 195,
+            "id": "nuzzle",
+            "basePower": 20,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 196,
+            "id": "originpulse",
+            "basePower": 110,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 197,
+            "id": "outrage",
+            "basePower": 120,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 198,
+            "id": "overdrive",
+            "basePower": 80,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 199,
+            "id": "overheat",
+            "basePower": 130,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 200,
+            "id": "painsplit",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 201,
+            "id": "partingshot",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Status"
+        },
+        {
+            "token": 202,
+            "id": "payback",
+            "basePower": 50,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 203,
+            "id": "petalblizzard",
+            "basePower": 90,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 204,
+            "id": "petaldance",
+            "basePower": 120,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 205,
+            "id": "photongeyser",
+            "basePower": 100,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 206,
+            "id": "playrough",
+            "basePower": 90,
+            "typeToken": 6,
+            "category": "Physical"
+        },
+        {
+            "token": 207,
+            "id": "poisonfang",
+            "basePower": 50,
+            "typeToken": 15,
+            "category": "Physical"
+        },
+        {
+            "token": 208,
+            "id": "poisonjab",
+            "basePower": 80,
+            "typeToken": 15,
+            "category": "Physical"
+        },
+        {
+            "token": 209,
+            "id": "pollenpuff",
+            "basePower": 90,
+            "typeToken": 2,
+            "category": "Special"
+        },
+        {
+            "token": 210,
+            "id": "poltergeist",
+            "basePower": 110,
+            "typeToken": 10,
+            "category": "Physical"
+        },
+        {
+            "token": 211,
+            "id": "populationbomb",
+            "basePower": 20,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 212,
+            "id": "pounce",
+            "basePower": 50,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 213,
+            "id": "powergem",
+            "basePower": 80,
+            "typeToken": 17,
+            "category": "Special"
+        },
+        {
+            "token": 214,
+            "id": "powertrip",
+            "basePower": 20,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 215,
+            "id": "powerwhip",
+            "basePower": 120,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 216,
+            "id": "precipiceblades",
+            "basePower": 120,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 217,
+            "id": "protect",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 218,
+            "id": "psyblade",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Physical"
+        },
+        {
+            "token": 219,
+            "id": "psychic",
+            "basePower": 90,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 220,
+            "id": "psychicfangs",
+            "basePower": 85,
+            "typeToken": 16,
+            "category": "Physical"
+        },
+        {
+            "token": 221,
+            "id": "psychicnoise",
+            "basePower": 75,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 222,
+            "id": "psychoboost",
+            "basePower": 140,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 223,
+            "id": "psychocut",
+            "basePower": 70,
+            "typeToken": 16,
+            "category": "Physical"
+        },
+        {
+            "token": 224,
+            "id": "psyshock",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 225,
+            "id": "psystrike",
+            "basePower": 100,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 226,
+            "id": "pyroball",
+            "basePower": 120,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 227,
+            "id": "quickattack",
+            "basePower": 40,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 228,
+            "id": "quiverdance",
+            "basePower": 0,
+            "typeToken": 2,
+            "category": "Status"
+        },
+        {
+            "token": 229,
+            "id": "ragefist",
+            "basePower": 50,
+            "typeToken": 10,
+            "category": "Physical"
+        },
+        {
+            "token": 230,
+            "id": "ragingbull",
+            "basePower": 90,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 231,
+            "id": "raindance",
+            "basePower": 0,
+            "typeToken": 20,
+            "category": "Status"
+        },
+        {
+            "token": 232,
+            "id": "rapidspin",
+            "basePower": 50,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 233,
+            "id": "razorshell",
+            "basePower": 75,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 234,
+            "id": "recharge",
+            "basePower": 0,
+            "typeToken": 1,
+            "category": "Status"
+        },
+        {
+            "token": 235,
+            "id": "recover",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 236,
+            "id": "reflect",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 237,
+            "id": "relicsong",
+            "basePower": 75,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 238,
+            "id": "rest",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 239,
+            "id": "revelationdance",
+            "basePower": 90,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 240,
+            "id": "revivalblessing",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 241,
+            "id": "roar",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 242,
+            "id": "rockblast",
+            "basePower": 25,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 243,
+            "id": "rockpolish",
+            "basePower": 0,
+            "typeToken": 17,
+            "category": "Status"
+        },
+        {
+            "token": 244,
+            "id": "rockslide",
+            "basePower": 75,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 245,
+            "id": "rocktomb",
+            "basePower": 60,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 246,
+            "id": "roost",
+            "basePower": 0,
+            "typeToken": 9,
+            "category": "Status"
+        },
+        {
+            "token": 247,
+            "id": "ruination",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Special"
+        },
+        {
+            "token": 248,
+            "id": "sacredfire",
+            "basePower": 100,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 249,
+            "id": "sacredsword",
+            "basePower": 90,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 250,
+            "id": "saltcure",
+            "basePower": 40,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 251,
+            "id": "scald",
+            "basePower": 80,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 252,
+            "id": "scaleshot",
+            "basePower": 25,
+            "typeToken": 4,
+            "category": "Physical"
+        },
+        {
+            "token": 253,
+            "id": "scorchingsands",
+            "basePower": 70,
+            "typeToken": 12,
+            "category": "Special"
+        },
+        {
+            "token": 254,
+            "id": "secretsword",
+            "basePower": 85,
+            "typeToken": 7,
+            "category": "Special"
+        },
+        {
+            "token": 255,
+            "id": "seedbomb",
+            "basePower": 80,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 256,
+            "id": "seedflare",
+            "basePower": 120,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 257,
+            "id": "seismictoss",
+            "basePower": 0,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 258,
+            "id": "shadowball",
+            "basePower": 80,
+            "typeToken": 10,
+            "category": "Special"
+        },
+        {
+            "token": 259,
+            "id": "shadowclaw",
+            "basePower": 70,
+            "typeToken": 10,
+            "category": "Physical"
+        },
+        {
+            "token": 260,
+            "id": "shadowsneak",
+            "basePower": 40,
+            "typeToken": 10,
+            "category": "Physical"
+        },
+        {
+            "token": 261,
+            "id": "shedtail",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 262,
+            "id": "shellsidearm",
+            "basePower": 90,
+            "typeToken": 15,
+            "category": "Special"
+        },
+        {
+            "token": 263,
+            "id": "shellsmash",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 264,
+            "id": "shiftgear",
+            "basePower": 0,
+            "typeToken": 18,
+            "category": "Status"
+        },
+        {
+            "token": 265,
+            "id": "shoreup",
+            "basePower": 0,
+            "typeToken": 12,
+            "category": "Status"
+        },
+        {
+            "token": 266,
+            "id": "slackoff",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 267,
+            "id": "sleeppowder",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 268,
+            "id": "sleeptalk",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 269,
+            "id": "sludgebomb",
+            "basePower": 90,
+            "typeToken": 15,
+            "category": "Special"
+        },
+        {
+            "token": 270,
+            "id": "sludgewave",
+            "basePower": 95,
+            "typeToken": 15,
+            "category": "Special"
+        },
+        {
+            "token": 271,
+            "id": "snowscape",
+            "basePower": 0,
+            "typeToken": 13,
+            "category": "Status"
+        },
+        {
+            "token": 272,
+            "id": "softboiled",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 273,
+            "id": "solarbeam",
+            "basePower": 120,
+            "typeToken": 11,
+            "category": "Special"
+        },
+        {
+            "token": 274,
+            "id": "spacialrend",
+            "basePower": 100,
+            "typeToken": 4,
+            "category": "Special"
+        },
+        {
+            "token": 275,
+            "id": "sparklingaria",
+            "basePower": 90,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 276,
+            "id": "spikes",
+            "basePower": 0,
+            "typeToken": 12,
+            "category": "Status"
+        },
+        {
+            "token": 277,
+            "id": "spiritbreak",
+            "basePower": 75,
+            "typeToken": 6,
+            "category": "Physical"
+        },
+        {
+            "token": 278,
+            "id": "spiritshackle",
+            "basePower": 80,
+            "typeToken": 10,
+            "category": "Physical"
+        },
+        {
+            "token": 279,
+            "id": "spore",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 280,
+            "id": "stealthrock",
+            "basePower": 0,
+            "typeToken": 17,
+            "category": "Status"
+        },
+        {
+            "token": 281,
+            "id": "steameruption",
+            "basePower": 110,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 282,
+            "id": "stickyweb",
+            "basePower": 0,
+            "typeToken": 2,
+            "category": "Status"
+        },
+        {
+            "token": 283,
+            "id": "stompingtantrum",
+            "basePower": 75,
+            "typeToken": 12,
+            "category": "Physical"
+        },
+        {
+            "token": 284,
+            "id": "stoneaxe",
+            "basePower": 65,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 285,
+            "id": "stoneedge",
+            "basePower": 100,
+            "typeToken": 17,
+            "category": "Physical"
+        },
+        {
+            "token": 286,
+            "id": "storedpower",
+            "basePower": 20,
+            "typeToken": 16,
+            "category": "Special"
+        },
+        {
+            "token": 287,
+            "id": "strangesteam",
+            "basePower": 90,
+            "typeToken": 6,
+            "category": "Special"
+        },
+        {
+            "token": 288,
+            "id": "strengthsap",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 289,
+            "id": "struggle",
+            "basePower": 50,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 290,
+            "id": "stunspore",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 291,
+            "id": "substitute",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 292,
+            "id": "suckerpunch",
+            "basePower": 70,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 293,
+            "id": "sunnyday",
+            "basePower": 0,
+            "typeToken": 8,
+            "category": "Status"
+        },
+        {
+            "token": 294,
+            "id": "sunsteelstrike",
+            "basePower": 100,
+            "typeToken": 18,
+            "category": "Physical"
+        },
+        {
+            "token": 295,
+            "id": "supercellslam",
+            "basePower": 100,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 296,
+            "id": "superfang",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 297,
+            "id": "superpower",
+            "basePower": 120,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 298,
+            "id": "surf",
+            "basePower": 90,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 299,
+            "id": "surgingstrikes",
+            "basePower": 25,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 300,
+            "id": "switcheroo",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Status"
+        },
+        {
+            "token": 301,
+            "id": "swordsdance",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 302,
+            "id": "synthesis",
+            "basePower": 0,
+            "typeToken": 11,
+            "category": "Status"
+        },
+        {
+            "token": 303,
+            "id": "tachyoncutter",
+            "basePower": 50,
+            "typeToken": 18,
+            "category": "Special"
+        },
+        {
+            "token": 304,
+            "id": "tailglow",
+            "basePower": 0,
+            "typeToken": 2,
+            "category": "Status"
+        },
+        {
+            "token": 305,
+            "id": "tailslap",
+            "basePower": 25,
+            "typeToken": 14,
+            "category": "Physical"
+        },
+        {
+            "token": 306,
+            "id": "tailwind",
+            "basePower": 0,
+            "typeToken": 9,
+            "category": "Status"
+        },
+        {
+            "token": 307,
+            "id": "takeheart",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 308,
+            "id": "taunt",
+            "basePower": 0,
+            "typeToken": 3,
+            "category": "Status"
+        },
+        {
+            "token": 309,
+            "id": "teleport",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 310,
+            "id": "temperflare",
+            "basePower": 75,
+            "typeToken": 8,
+            "category": "Physical"
+        },
+        {
+            "token": 311,
+            "id": "terablast",
+            "basePower": 80,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 312,
+            "id": "terastarstorm",
+            "basePower": 120,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 313,
+            "id": "throatchop",
+            "basePower": 80,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 314,
+            "id": "thunder",
+            "basePower": 110,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 315,
+            "id": "thunderbolt",
+            "basePower": 90,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 316,
+            "id": "thunderclap",
+            "basePower": 70,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 317,
+            "id": "thunderpunch",
+            "basePower": 75,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 318,
+            "id": "thunderwave",
+            "basePower": 0,
+            "typeToken": 5,
+            "category": "Status"
+        },
+        {
+            "token": 319,
+            "id": "tidyup",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 320,
+            "id": "torchsong",
+            "basePower": 80,
+            "typeToken": 8,
+            "category": "Special"
+        },
+        {
+            "token": 321,
+            "id": "toxic",
+            "basePower": 0,
+            "typeToken": 15,
+            "category": "Status"
+        },
+        {
+            "token": 322,
+            "id": "toxicspikes",
+            "basePower": 0,
+            "typeToken": 15,
+            "category": "Status"
+        },
+        {
+            "token": 323,
+            "id": "trailblaze",
+            "basePower": 50,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 324,
+            "id": "transform",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 325,
+            "id": "triattack",
+            "basePower": 80,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 326,
+            "id": "trick",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 327,
+            "id": "trickroom",
+            "basePower": 0,
+            "typeToken": 16,
+            "category": "Status"
+        },
+        {
+            "token": 328,
+            "id": "triplearrows",
+            "basePower": 90,
+            "typeToken": 7,
+            "category": "Physical"
+        },
+        {
+            "token": 329,
+            "id": "tripleaxel",
+            "basePower": 20,
+            "typeToken": 13,
+            "category": "Physical"
+        },
+        {
+            "token": 330,
+            "id": "uturn",
+            "basePower": 70,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 331,
+            "id": "vacuumwave",
+            "basePower": 40,
+            "typeToken": 7,
+            "category": "Special"
+        },
+        {
+            "token": 332,
+            "id": "victorydance",
+            "basePower": 0,
+            "typeToken": 7,
+            "category": "Status"
+        },
+        {
+            "token": 333,
+            "id": "voltswitch",
+            "basePower": 70,
+            "typeToken": 5,
+            "category": "Special"
+        },
+        {
+            "token": 334,
+            "id": "volttackle",
+            "basePower": 120,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 335,
+            "id": "waterfall",
+            "basePower": 80,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 336,
+            "id": "waterpulse",
+            "basePower": 60,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 337,
+            "id": "waterspout",
+            "basePower": 150,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 338,
+            "id": "wavecrash",
+            "basePower": 120,
+            "typeToken": 20,
+            "category": "Physical"
+        },
+        {
+            "token": 339,
+            "id": "weatherball",
+            "basePower": 50,
+            "typeToken": 14,
+            "category": "Special"
+        },
+        {
+            "token": 340,
+            "id": "whirlpool",
+            "basePower": 35,
+            "typeToken": 20,
+            "category": "Special"
+        },
+        {
+            "token": 341,
+            "id": "whirlwind",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 342,
+            "id": "wickedblow",
+            "basePower": 75,
+            "typeToken": 3,
+            "category": "Physical"
+        },
+        {
+            "token": 343,
+            "id": "wildcharge",
+            "basePower": 90,
+            "typeToken": 5,
+            "category": "Physical"
+        },
+        {
+            "token": 344,
+            "id": "willowisp",
+            "basePower": 0,
+            "typeToken": 8,
+            "category": "Status"
+        },
+        {
+            "token": 345,
+            "id": "wish",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 346,
+            "id": "woodhammer",
+            "basePower": 120,
+            "typeToken": 11,
+            "category": "Physical"
+        },
+        {
+            "token": 347,
+            "id": "workup",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 348,
+            "id": "xscissor",
+            "basePower": 80,
+            "typeToken": 2,
+            "category": "Physical"
+        },
+        {
+            "token": 349,
+            "id": "yawn",
+            "basePower": 0,
+            "typeToken": 14,
+            "category": "Status"
+        },
+        {
+            "token": 350,
+            "id": "zenheadbutt",
+            "basePower": 80,
+            "typeToken": 16,
+            "category": "Physical"
+        },
+        {
+            "token": 351,
+            "id": "zingzap",
+            "basePower": 80,
+            "typeToken": 5,
+            "category": "Physical"
+        }
+    ],
+    "typeEffectiveness": [
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ]
+    ],
+    "dataHash": "ca1fcf1402f1fc19e9f08652ffc722b2142a01bd369fb557d9a752ffb7cf3501"
+}

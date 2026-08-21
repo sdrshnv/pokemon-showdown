@@ -6,6 +6,7 @@
   "types": "dist/sim/index.d.ts",
   "dependencies": {
     "esbuild": "^0.25.0",
+    "msgpackr": "^2.0.5",
     "mysql2": "^3.14.2",
     "preact": "^10.5.15",
     "preact-render-to-string": "^6.5.13",
@@ -33,7 +34,9 @@
   },
   "scripts": {
     "start": "node pokemon-showdown start",
+    "battle-worker": "node dist/sim/battle-worker-process.js",
     "build": "node build",
+    "generate-pokezero-baselines": "node build && node tools/generate-pokezero-baseline-manifest.js",
     "build-npm": "node build && npx tsc sim/global-types.ts sim/index.ts --declaration --emitDeclarationOnly --declarationDir dist/ --target es2020 --strict --moduleResolution node --types node --lib es2020",
     "test-npm": "npx tsc sim/global-types.ts sim/index.ts --noEmit --target es2020 --strict --moduleResolution node --types node --lib es2020",
     "tsc": "tsc",

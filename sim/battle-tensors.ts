@@ -5,6 +5,7 @@ import type { EffectState, Pokemon } from './pokemon';
 import type { ChoiceRequest, MoveRequest, MoveRequestData, Side } from './side';
 
 const BOOST_IDS: BoostID[] = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion'];
+const STAT_IDS = ['atk', 'def', 'spa', 'spd', 'spe'] as const;
 const PSEUDOWEATHER_IDS = ['trickroom', 'gravity', 'magicroom', 'wonderroom'] as const;
 const SIDE_CONDITION_IDS = [
 	'stealthrock', 'spikes', 'toxicspikes', 'stickyweb',
@@ -20,6 +21,14 @@ type TensorData = Float32Array | Int32Array | Uint8Array;
 type TensorDtype = 'float32' | 'int32' | 'uint8';
 type VocabularyName = keyof Gen9RandomBattleTensorManifest['vocabularies'];
 
+export type Gen9RandomBattleRequestState = '' | 'move' | 'switch' | 'revive' | 'wait' | 'retry' | 'terminal';
+export type Gen9RandomBattleResult = 'ongoing' | 'win' | 'loss' | 'tie';
+
+export interface Gen9RandomBattleEntityIds {
+	readonly you: readonly (string | null)[];
+	readonly foe: readonly (string | null)[];
+}
+
 export interface Gen9RandomBattleTensorManifest {
 	schemaVersion: string;
 	supportedFormatIds: readonly string[];
@@ -28,6 +37,7 @@ export interface Gen9RandomBattleTensorManifest {
 		readonly maxTurns: number,
 		readonly maxDuration: number,
 		readonly maxSideConditionLayers: number,
+		readonly maxStat: number,
 		readonly maxTeamSize: number,
 		readonly maxMoveSlots: number,
 	};
@@ -41,14 +51,27 @@ export interface Gen9RandomBattleTensorManifest {
 		readonly terrain: readonly string[],
 		readonly statuses: readonly string[],
 		readonly requestStates: readonly string[],
+		readonly results: readonly string[],
 	};
 	fields: {
 		readonly continuous: readonly string[],
 		readonly categorical: readonly string[],
 		readonly binary: readonly string[],
 	};
+	events: {
+		readonly schemaVersion: string,
+		readonly stateCommands: readonly string[],
+		readonly transientCommands: readonly string[],
+		readonly cosmeticCommands: readonly string[],
+		readonly schemaHash: string,
+	};
+	eventSchemaVersion: string;
+	eventSchemaHash: string;
+	actionCount: number;
 	actions: readonly string[];
+	randomBattleDataHash: string;
 	schemaHash: string;
+	tensorSchemaHash: string;
 }
 
 export interface EncodedTensor<T extends TensorData> {
@@ -64,6 +87,10 @@ export interface EncodedBattleState {
 	visibility: VisibilityMode;
 	formatid: ID;
 	side: SideID;
+	requestState: Gen9RandomBattleRequestState;
+	needsAction: boolean;
+	result: Gen9RandomBattleResult;
+	entityIds: Gen9RandomBattleEntityIds;
 	continuous: EncodedTensor<Float32Array>;
 	categorical: EncodedTensor<Int32Array>;
 	binary: EncodedTensor<Uint8Array>;
@@ -145,6 +172,8 @@ function encodeState(battle: Battle, observer: Side, visibility: VisibilityMode)
 	const categorical = new FeatureBuilder();
 	const binary = new FeatureBuilder();
 	const request = observer.activeRequest;
+	const requestState = getGen9RandomBattleRequestState(request, battle.ended);
+	const result = getBattleResult(battle, observer);
 
 	pushGlobalFeatures(continuous, categorical, binary, battle, observer);
 	pushSideFeatures(continuous, categorical, binary, 'you', observer, request, true);
@@ -158,6 +187,10 @@ function encodeState(battle: Battle, observer: Side, visibility: VisibilityMode)
 		visibility,
 		formatid: battle.format.id,
 		side: observer.id,
+		requestState,
+		needsAction: gen9RandomBattleRequestNeedsAction(request, battle.ended),
+		result,
+		entityIds: buildEntityIds(observer),
 		continuous: toFloatTensor(continuous, GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.fields.continuous),
 		categorical: toIntTensor(categorical, GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.fields.categorical),
 		binary: toByteTensor(binary, GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.fields.binary),
@@ -215,7 +248,10 @@ function pushGlobalFeatures(
 
 	categorical.push('battle.weather', token('weather', battle.field.weather));
 	categorical.push('battle.terrain', token('terrain', battle.field.terrain));
-	categorical.push('battle.request', token('requestStates', getRequestStateName(observer.activeRequest)));
+	categorical.push('battle.request', token(
+		'requestStates', getGen9RandomBattleRequestState(observer.activeRequest, battle.ended)
+	));
+	categorical.push('battle.result', token('results', getBattleResult(battle, observer)));
 
 	binary.push('battle.ended', battle.ended ? 1 : 0);
 	for (const pseudoWeather of PSEUDOWEATHER_IDS) {
@@ -231,6 +267,9 @@ function pushGlobalFeatures(
 	binary.push('you.maybeDisabled', activeRequest?.maybeDisabled ? 1 : 0);
 	binary.push('you.maybeLocked', activeRequest?.maybeLocked ? 1 : 0);
 	binary.push('you.noCancel', observer.activeRequest?.noCancel ? 1 : 0);
+	binary.push('battle.needsAction', gen9RandomBattleRequestNeedsAction(observer.activeRequest, battle.ended) ? 1 : 0);
+	binary.push('battle.isRetry', isUpdateRequest(observer.activeRequest) ? 1 : 0);
+	binary.push('battle.isRevivalRequest', isGen9RevivalBlessingRequest(observer.activeRequest) ? 1 : 0);
 }
 
 function pushSideFeatures(
@@ -290,6 +329,12 @@ function pushPrivatePokemonFeatures(
 	continuous.push(`${prefix}.hp`, pokemon.maxhp ? pokemon.hp / pokemon.maxhp : 0);
 	continuous.push(`${prefix}.level`, clamp01(pokemon.level / 100));
 	for (const boost of BOOST_IDS) continuous.push(`${prefix}.boost.${boost}`, pokemon.boosts[boost] / 6);
+	for (const stat of STAT_IDS) {
+		continuous.push(
+			`${prefix}.stat.${stat}`,
+			clamp01(pokemon.baseStoredStats[stat] / GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.normalization.maxStat)
+		);
+	}
 
 	categorical.push(`${prefix}.species`, token('species', pokemon.species.id));
 	categorical.push(`${prefix}.ability`, token('abilities', pokemon.ability || pokemon.baseAbility));
@@ -303,6 +348,7 @@ function pushPrivatePokemonFeatures(
 	pushPokemonKnowledge(binary, prefix, {
 		active: pokemon.isActive, revealed: true, fainted: pokemon.fainted,
 		hp: true, level: true, species: true, ability: true, item: true, teraType: true, type: true, status: true,
+		stats: true,
 	});
 	pushPrivateMoveFeatures(continuous, categorical, binary, prefix, pokemon, request);
 }
@@ -329,6 +375,7 @@ function pushPublicPokemonFeatures(
 	for (const boost of BOOST_IDS) {
 		continuous.push(`${prefix}.boost.${boost}`, isVisible ? pokemon.boosts[boost] / 6 : 0);
 	}
+	for (const stat of STAT_IDS) continuous.push(`${prefix}.stat.${stat}`, 0);
 
 	categorical.push(`${prefix}.species`, token('species', species, !detailsKnown));
 	categorical.push(`${prefix}.ability`, token('abilities', undefined, true));
@@ -351,6 +398,7 @@ function pushPublicPokemonFeatures(
 		teraType: teraKnown,
 		type: detailsKnown,
 		status: detailsKnown,
+		stats: false,
 	});
 	pushUnknownMoveFeatures(continuous, categorical, binary, prefix);
 }
@@ -367,6 +415,7 @@ interface PokemonKnowledge {
 	teraType: boolean;
 	type: boolean;
 	status: boolean;
+	stats: boolean;
 }
 
 function pushPokemonKnowledge(binary: FeatureBuilder, prefix: string, known: PokemonKnowledge) {
@@ -374,7 +423,7 @@ function pushPokemonKnowledge(binary: FeatureBuilder, prefix: string, known: Pok
 	binary.push(`${prefix}.active`, known.active ? 1 : 0);
 	binary.push(`${prefix}.revealed`, known.revealed ? 1 : 0);
 	binary.push(`${prefix}.fainted`, known.fainted ? 1 : 0);
-	for (const field of ['hp', 'level', 'species', 'ability', 'item', 'teraType', 'type', 'status'] as const) {
+	for (const field of ['hp', 'level', 'species', 'ability', 'item', 'teraType', 'type', 'status', 'stats'] as const) {
 		binary.push(`${prefix}.${field}Known`, known[field] ? 1 : 0);
 	}
 }
@@ -402,6 +451,7 @@ function pushPrivateMoveFeatures(
 		const disabled = slot ? (requestMove ? !!requestMove.disabled : isDisabledMoveSlot(slot)) : false;
 		binary.push(`${prefix}.move${i + 1}.present`, slot ? 1 : 0);
 		binary.push(`${prefix}.move${i + 1}.revealed`, slot ? 1 : 0);
+		binary.push(`${prefix}.move${i + 1}.ppKnown`, slot ? 1 : 0);
 		binary.push(`${prefix}.move${i + 1}.disabled`, disabled ? 1 : 0);
 	}
 }
@@ -420,6 +470,7 @@ function pushUnknownMoveFeatures(
 	for (let i = 1; i <= maxMoveSlots; i++) {
 		binary.push(`${prefix}.move${i}.present`, 1);
 		binary.push(`${prefix}.move${i}.revealed`, 0);
+		binary.push(`${prefix}.move${i}.ppKnown`, 0);
 		binary.push(`${prefix}.move${i}.disabled`, 0);
 	}
 }
@@ -433,13 +484,14 @@ function pushEmptyPokemonFeatures(
 	continuous.push(`${prefix}.hp`, 0);
 	continuous.push(`${prefix}.level`, 0);
 	for (const boost of BOOST_IDS) continuous.push(`${prefix}.boost.${boost}`, 0);
+	for (const stat of STAT_IDS) continuous.push(`${prefix}.stat.${stat}`, 0);
 
 	for (const field of ['species', 'ability', 'item', 'teraType', 'terastallized', 'type1', 'type2', 'status']) {
 		categorical.push(`${prefix}.${field}`, NONE_TOKEN);
 	}
 	for (const field of [
 		'present', 'active', 'revealed', 'fainted', 'hpKnown', 'levelKnown', 'speciesKnown',
-		'abilityKnown', 'itemKnown', 'teraTypeKnown', 'typeKnown', 'statusKnown',
+		'abilityKnown', 'itemKnown', 'teraTypeKnown', 'typeKnown', 'statusKnown', 'statsKnown',
 	]) {
 		binary.push(`${prefix}.${field}`, 0);
 	}
@@ -450,6 +502,7 @@ function pushEmptyPokemonFeatures(
 	for (let i = 1; i <= maxMoveSlots; i++) {
 		binary.push(`${prefix}.move${i}.present`, 0);
 		binary.push(`${prefix}.move${i}.revealed`, 0);
+		binary.push(`${prefix}.move${i}.ppKnown`, 0);
 		binary.push(`${prefix}.move${i}.disabled`, 0);
 	}
 }
@@ -477,6 +530,9 @@ function buildActionMask(side: Side): EncodedTensor<Uint8Array> {
 	} else if ('forceSwitch' in request && request.forceSwitch) {
 		pushSwitchMask(data, request, maxMoveSlots * 2);
 	}
+	if (gen9RandomBattleRequestNeedsAction(request) && !data.some(Boolean)) {
+		throw new Error(`Actionable Gen 9 Random Battle request produced an all-zero action mask`);
+	}
 	return { data, shape: [data.length], labels, dtype: 'uint8' };
 }
 
@@ -492,21 +548,46 @@ function buildMoveActionMap(pokemon: Pokemon, request: MoveRequest['active'][num
 
 function pushSwitchMask(data: Uint8Array, request: ChoiceRequest, offset: number) {
 	const maxTeamSize = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.normalization.maxTeamSize;
+	const revivalBlessing = isGen9RevivalBlessingRequest(request);
 	for (let i = 0; i < Math.min(request.side.pokemon.length, maxTeamSize); i++) {
 		const pokemon = request.side.pokemon[i];
-		if (!pokemon.active && !pokemon.condition.includes('fnt')) data[offset + i] = 1;
+		if (revivalBlessing ? pokemon.condition.includes('fnt') : !pokemon.active && !pokemon.condition.includes('fnt')) {
+			data[offset + i] = 1;
+		}
 	}
 }
 
-function getRequestStateName(request: ChoiceRequest | null) {
+export function getGen9RandomBattleRequestState(
+	request: ChoiceRequest | null,
+	ended = false,
+): Gen9RandomBattleRequestState {
+	if (ended) return 'terminal';
 	if (!request) return '';
 	if (request.wait) return 'wait';
 	if ('teamPreview' in request && request.teamPreview) {
 		throw new Error(`Gen 9 Random Battle tensor schema does not support Team Preview`);
 	}
-	if ('forceSwitch' in request && request.forceSwitch) return 'switch';
+	if (isUpdateRequest(request)) return 'retry';
+	if ('forceSwitch' in request && request.forceSwitch) {
+		return isGen9RevivalBlessingRequest(request) ? 'revive' : 'switch';
+	}
 	if ('active' in request && request.active) return 'move';
 	return '';
+}
+
+export function isGen9RevivalBlessingRequest(request: ChoiceRequest | null) {
+	return !!request && 'forceSwitch' in request && !!request.forceSwitch &&
+		request.side.pokemon.some(pokemon => pokemon.active && pokemon.reviving);
+}
+
+export function gen9RandomBattleRequestNeedsAction(request: ChoiceRequest | null, ended = false) {
+	if (ended || !request || request.wait) return false;
+	if ('teamPreview' in request && request.teamPreview) return true;
+	return !!(('forceSwitch' in request && request.forceSwitch) || ('active' in request && request.active));
+}
+
+function isUpdateRequest(request: ChoiceRequest | null) {
+	return !!request && 'update' in request && !!request.update;
 }
 
 function asMoveRequest(request: ChoiceRequest | null): MoveRequest | null {
@@ -541,6 +622,28 @@ function countRevealedOpponentSlots(side: Side) {
 	return side.pokemon.filter(
 		pokemon => pokemon.isActive || pokemon.previouslySwitchedIn > 0 || pokemon.fainted
 	).length;
+}
+
+function buildEntityIds(observer: Side): Gen9RandomBattleEntityIds {
+	const maxTeamSize = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.normalization.maxTeamSize;
+	const you = Array<string | null>(maxTeamSize).fill(null);
+	const foe = Array<string | null>(maxTeamSize).fill(null);
+	for (let i = 0; i < Math.min(observer.pokemon.length, maxTeamSize); i++) {
+		you[i] = `you:${toID(observer.pokemon[i].fullname)}`;
+	}
+	for (let i = 0; i < Math.min(observer.foe.pokemon.length, maxTeamSize); i++) {
+		const pokemon = observer.foe.pokemon[i];
+		if (pokemon.isActive || pokemon.previouslySwitchedIn > 0 || pokemon.fainted) {
+			foe[i] = `foe:${toID(pokemon.fullname)}`;
+		}
+	}
+	return { you, foe };
+}
+
+function getBattleResult(battle: Battle, observer: Side): Gen9RandomBattleResult {
+	if (!battle.ended) return 'ongoing';
+	if (!battle.winner) return 'tie';
+	return battle.winner === observer.name ? 'win' : 'loss';
 }
 
 function parsePublicDetails(pokemon: Pokemon): ParsedPublicDetails {
