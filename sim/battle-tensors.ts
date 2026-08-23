@@ -1,8 +1,25 @@
 import { deepFreeze } from '../lib/utils';
 import type { Battle } from './battle';
-import { toID } from './dex';
+import { toID, type ModdedDex } from './dex';
 import type { EffectState, Pokemon } from './pokemon';
 import type { ChoiceRequest, MoveRequest, MoveRequestData, Side } from './side';
+
+/**
+ * Cosmetic formes (Florges-Yellow, Vivillon-Jungle, ...) are mechanically identical to their
+ * base species: same stats, typing, and abilities. The Random Battle team generator samples them
+ * uniformly (see `getForme` in random-battles/gen9/teams.ts) and the simulator's public protocol
+ * reveals the cosmetic name, so every species entry point must normalize to the base species
+ * before tokenization. `Species#isCosmeticForme` is only set on formes with a standalone Pokedex
+ * entry; formes that exist solely inside a parent's `cosmeticFormes` array (e.g. Florges' color
+ * variants) leave it `undefined`, so membership in that array is the only reliable test.
+ */
+export function canonicalSpeciesId(dex: ModdedDex, value: string | ID): ID {
+	const species = dex.species.get(value);
+	if (!species.exists) return toID(value);
+	const base = dex.species.get(species.baseSpecies);
+	if (base.cosmeticFormes?.some(forme => toID(forme) === species.id)) return base.id;
+	return species.id;
+}
 
 const BOOST_IDS: BoostID[] = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion'];
 const STAT_IDS = ['atk', 'def', 'spa', 'spd', 'spe'] as const;
@@ -336,7 +353,7 @@ function pushPrivatePokemonFeatures(
 		);
 	}
 
-	categorical.push(`${prefix}.species`, token('species', pokemon.species.id));
+	categorical.push(`${prefix}.species`, token('species', canonicalSpeciesId(pokemon.battle.dex, pokemon.species.id)));
 	categorical.push(`${prefix}.ability`, token('abilities', pokemon.ability || pokemon.baseAbility));
 	categorical.push(`${prefix}.item`, token('items', pokemon.item));
 	categorical.push(`${prefix}.teraType`, token('types', pokemon.teraType));
@@ -364,7 +381,7 @@ function pushPublicPokemonFeatures(
 	const fainted = pokemon.fainted;
 	const detailsKnown = isVisible || fainted;
 	const parsed = isVisible ? parsePublicDetails(pokemon) : null;
-	const species = parsed?.species || (fainted ? pokemon.species.id : '');
+	const species = parsed?.species || (fainted ? canonicalSpeciesId(pokemon.battle.dex, pokemon.species.id) : '');
 	const level = parsed?.level || (fainted ? pokemon.level : 0);
 	const apparentTypes = isVisible ? pokemon.apparentType.split('/') : (fainted ? pokemon.species.types : []);
 	const status = parsed?.condition.status || (fainted ? toID('fnt') : '');
@@ -649,7 +666,7 @@ function getBattleResult(battle: Battle, observer: Side): Gen9RandomBattleResult
 function parsePublicDetails(pokemon: Pokemon): ParsedPublicDetails {
 	const [details, condition] = pokemon.getFullDetails().shared.split('|');
 	const parts = details.split(',').map(part => part.trim());
-	const species = pokemon.battle.dex.species.get(parts[0]).id;
+	const species = canonicalSpeciesId(pokemon.battle.dex, pokemon.battle.dex.species.get(parts[0]).id);
 	let level = 100;
 	let terastallized = '';
 	for (const part of parts.slice(1)) {

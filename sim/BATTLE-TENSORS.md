@@ -88,8 +88,23 @@ Any change to a vocabulary, field order, normalization constant, classified even
 set, or action label changes the corresponding hash. Model checkpoints and replay
 data must store the schema versions and all three compatibility hashes.
 
-The generator includes all current Random Battle set species and their formes,
-all set moves, all Gen 9/Past standard abilities and items. The broader ability
+The generator includes all current Random Battle set species and their battle-relevant
+formes, all set moves, all Gen 9/Past standard abilities and items. The broader ability
 vocabulary is required because form changes and ability-copying effects can change
 public current ability. New Random Battle set data intentionally fails the vocabulary
 coverage test until the manifest is regenerated under a new schema version.
+
+### Cosmetic formes
+
+Cosmetic formes (Florges' four color variants, Vivillon's patterns, Alcremie's creams,
+Minior's colors, Sawsbuck's seasons, Gastrodon's regions) are mechanically identical to
+their base species — same stats, typing, and abilities — but the Random Battle team
+generator samples them, and the simulator's public protocol reveals the specific cosmetic
+name. `canonicalSpeciesId` (`battle-tensors.ts`) normalizes every species entry point —
+the private/omniscient encoder, the public details parser, the observation tracker, and
+the worker's privileged targets — to the base species before tokenization, and the
+generator excludes cosmetic formes from the species vocabulary so it expresses exactly
+what the encoder can emit. A cosmetic-forme id is therefore never a species token; do not
+add one when regenerating the manifest, and do not key normalization on
+`Species#isCosmeticForme`, which is unset for formes that exist only inside a parent's
+`cosmeticFormes` array rather than as a standalone Pokedex entry.

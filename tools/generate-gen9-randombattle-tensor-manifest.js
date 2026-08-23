@@ -5,9 +5,10 @@ const fs = require('fs');
 const path = require('path');
 
 const { Dex, toID } = require('../dist/sim/dex');
+const { canonicalSpeciesId } = require('../dist/sim/battle-tensors');
 const randomSets = require('../data/random-battles/gen9/sets.json');
 
-const SCHEMA_VERSION = 'ps-gen9-randombattle-v3';
+const SCHEMA_VERSION = 'ps-gen9-randombattle-v4';
 const EVENT_SCHEMA_VERSION = 'ps-gen9-randombattle-events-v1';
 const MAX_TEAM_SIZE = 6;
 const MAX_MOVE_SLOTS = 4;
@@ -112,9 +113,14 @@ function tensorFields() {
 const dex = Dex.forFormat('gen9randombattle');
 const randomSpecies = Object.keys(randomSets).map(id => dex.species.get(id));
 const randomBaseSpecies = new Set(randomSpecies.map(species => species.baseSpecies));
+// Cosmetic formes (Florges-Yellow, Vivillon-Jungle, ...) are mechanically identical to their base
+// species and are normalized away by the encoder (`canonicalSpeciesId` in battle-tensors.ts), so
+// the vocabulary should express exactly the base-species tokens the encoder can emit, not the
+// cosmetic variants the random-battle team generator happens to sample.
 const species = dex.species.all()
 	.filter(entry => entry.exists && randomBaseSpecies.has(entry.baseSpecies))
-	.map(entry => entry.id);
+	.map(entry => entry.id)
+	.filter(id => canonicalSpeciesId(dex, id) === id);
 const moves = ['struggle', 'recharge'];
 for (const speciesData of Object.values(randomSets)) {
 	for (const set of speciesData.sets) {

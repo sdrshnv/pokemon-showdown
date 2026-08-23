@@ -1,5 +1,6 @@
 import { Dex, toID } from './dex';
 import {
+	canonicalSpeciesId,
 	gen9RandomBattleRequestNeedsAction,
 	getGen9RandomBattleRequestState,
 	GEN9_RANDOM_BATTLE_ACTION_LABELS,
@@ -569,7 +570,8 @@ export class Gen9RandomBattleObservationTracker {
 
 	private receiveFormeChange(args: string[]) {
 		this.updatePokemon(args[0], pokemon => {
-			pokemon.species = toID(args[1]); pokemon.types = pokemonTypes(pokemon.species, pokemon.terastallized);
+			pokemon.species = canonicalSpeciesId(Dex, toID(args[1]));
+			pokemon.types = pokemonTypes(pokemon.species, pokemon.terastallized);
 			if (args[2]) Object.assign(pokemon, parseCondition(args[2]));
 		});
 	}
@@ -985,7 +987,7 @@ function parseDetails(text: string): ParsedDetails {
 		if (/^L\d+$/.test(part)) level = Number(part.slice(1));
 		if (part.startsWith('tera:')) terastallized = toID(part.slice(5));
 	}
-	return { species: Dex.species.get(parts[0]).id, level, terastallized };
+	return { species: canonicalSpeciesId(Dex, Dex.species.get(parts[0]).id), level, terastallized };
 }
 
 function parseCondition(text: string): ParsedCondition {

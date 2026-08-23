@@ -12,7 +12,11 @@ import {
 	type Gen9RandomBattleEvent,
 } from './battle-observation';
 import { BattleStream, getPlayerStreams } from './battle-stream';
-import { GEN9_RANDOM_BATTLE_TENSOR_MANIFEST, type EncodedBattleState } from './battle-tensors';
+import {
+	canonicalSpeciesId,
+	GEN9_RANDOM_BATTLE_TENSOR_MANIFEST,
+	type EncodedBattleState,
+} from './battle-tensors';
 import { PRNG, type PRNGSeed } from './prng';
 import type { ChoiceRequest } from './side';
 import type { Pokemon } from './pokemon';
@@ -695,7 +699,9 @@ class BattleSession {
 			if (!species) continue;
 			const candidates = opponent.pokemon.filter(pokemon => {
 				if (publicIds.has(pokemon)) return false;
-				return [toID(pokemon.set.species), pokemon.baseSpecies.id, pokemon.species.id].includes(species as ID);
+				return [toID(pokemon.set.species), pokemon.baseSpecies.id, pokemon.species.id]
+					.map(id => canonicalSpeciesId(battle.dex, id))
+					.includes(species as ID);
 			});
 			if (candidates.length === 1) bindPublicId(publicIds, candidates[0], publicId);
 		}
@@ -717,7 +723,10 @@ class BattleSession {
 			const ability = categoricalField(observation, `${prefix}.ability`, 'abilities');
 			const item = categoricalField(observation, `${prefix}.item`, 'items');
 			const teraType = categoricalField(observation, `${prefix}.teraType`, 'types');
-			if (binaryField(observation, `${prefix}.speciesKnown`) && species === toID(pokemon.set.species)) {
+			if (
+				binaryField(observation, `${prefix}.speciesKnown`) &&
+				species === canonicalSpeciesId(this.stream.battle!.dex, toID(pokemon.set.species))
+			) {
 				knowledge.species = true;
 			}
 			if (binaryField(observation, `${prefix}.abilityKnown`) && ability === toID(pokemon.set.ability)) {
@@ -942,14 +951,14 @@ function privilegedPokemonTarget(
 		publicEntityId,
 		initialTeamSlot,
 		initial: {
-			species: toID(pokemon.set.species || pokemon.baseSpecies.id),
+			species: canonicalSpeciesId(pokemon.battle.dex, toID(pokemon.set.species || pokemon.baseSpecies.id)),
 			ability: toID(pokemon.set.ability),
 			item: toID(pokemon.set.item),
 			teraType: toID(pokemon.set.teraType),
 			moves: initialMoves,
 		},
 		current: {
-			species: pokemon.species.id,
+			species: canonicalSpeciesId(pokemon.battle.dex, pokemon.species.id),
 			ability: pokemon.ability,
 			item: pokemon.item,
 			teraType: toID(pokemon.teraType),

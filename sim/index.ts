@@ -12,6 +12,7 @@
 
 export { Battle } from './battle';
 export {
+	canonicalSpeciesId,
 	decodeGen9RandomBattleAction,
 	encodeBattleState,
 	encodeOmniscientBattleState,

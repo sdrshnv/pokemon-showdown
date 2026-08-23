@@ -110,6 +110,25 @@ describe('Gen 9 Random Battle tensors', () => {
 		}
 	});
 
+	it('should normalize every cosmetic forme to an in-vocabulary base species, and pin none as tokens', () => {
+		const dex = Sim.Dex.forFormat('gen9randombattle');
+		const species = new Set(GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species);
+		let cosmeticFormeCount = 0;
+		for (const speciesId of Object.keys(randomSets)) {
+			const base = dex.species.get(speciesId);
+			for (const cosmeticForme of base.cosmeticFormes || []) {
+				cosmeticFormeCount++;
+				const cosmeticId = Sim.toID(cosmeticForme);
+				assert.equal(Sim.canonicalSpeciesId(dex, cosmeticId), base.id,
+					`${cosmeticForme} must normalize to ${base.id}`);
+				assert(!species.has(cosmeticId),
+					`Cosmetic forme ${cosmeticForme} must not occupy its own species token`);
+				assert(species.has(base.id), `Base species ${base.id} must remain in the vocabulary`);
+			}
+		}
+		assert(cosmeticFormeCount > 0, 'test fixture assumption: some randbats species have cosmetic formes');
+	});
+
 	it('should emit tensors matching the checked-in field contract', () => {
 		const encoded = encodeBattleState(battle, 'p1');
 		const manifest = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST;
@@ -231,6 +250,28 @@ describe('Gen 9 Random Battle tensors', () => {
 		}
 	});
 
+	it('should normalize a cosmetic forme to its base species on the private and omniscient paths', () => {
+		const cosmeticBattle = common.createBattle({ formatid: 'gen9randombattle' }, [[
+			{ species: 'Florges-Yellow', ability: 'Flower Veil', teraType: 'Fairy', moves: ['moonblast'] },
+		], [
+			{ species: 'Sawsbuck-Summer', ability: 'Sap Sipper', teraType: 'Grass', moves: ['hornleech'] },
+		]]);
+		try {
+			const florges = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species.indexOf('florges');
+			const sawsbuck = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species.indexOf('sawsbuck');
+			assert(florges > 1, 'florges must be a real vocabulary token');
+			assert(sawsbuck > 1, 'sawsbuck must be a real vocabulary token');
+
+			const own = encodeBattleState(cosmeticBattle, 'p1');
+			assert.equal(own.categorical.data[indexOf(own.categorical, 'you.slot1.species')], florges);
+
+			const omniscient = encodeOmniscientBattleState(cosmeticBattle, 'p1');
+			assert.equal(omniscient.categorical.data[indexOf(omniscient.categorical, 'foe.slot1.species')], sawsbuck);
+		} finally {
+			cosmeticBattle.destroy();
+		}
+	});
+
 	it('should encode terminal outcomes without requiring an action', () => {
 		battle.win('p1');
 		const winner = encodeBattleState(battle, 'p1');
@@ -282,6 +323,26 @@ describe('Gen 9 Random Battle protocol observations', () => {
 		assert.equal(tracker.decodeAction(4), 'move softboiled terastallize');
 		assert.equal(tracker.decodeAction(9), 'switch 2');
 		assert.throws(() => tracker.decodeAction(8), /Illegal/);
+	});
+
+	it('should encode a publicly revealed cosmetic forme as its known base species', () => {
+		const cosmeticBattle = common.createBattle({ formatid: 'gen9randombattle' }, [[
+			{ species: 'Wynaut', ability: 'Shadow Tag', moves: ['splash'] },
+		], [
+			{ species: 'Florges-Yellow', ability: 'Flower Veil', moves: ['moonblast'] },
+		]]);
+		try {
+			const publicTracker = new Gen9RandomBattleObservationTracker('p1');
+			publicTracker.receive(`|request|${JSON.stringify(cosmeticBattle.p1.activeRequest)}`);
+			publicTracker.receive('|switch|p2a: Florges|Florges-Yellow, L80|100/100');
+			const encoded = publicTracker.encode();
+			const florges = GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species.indexOf('florges');
+			assert(florges > 1, 'florges must be a real vocabulary token');
+			assert.equal(encoded.categorical.data[indexOf(encoded.categorical, 'foe.slot1.species')], florges);
+			assert.equal(encoded.binary.data[indexOf(encoded.binary, 'foe.slot1.speciesKnown')], 1);
+		} finally {
+			cosmeticBattle.destroy();
+		}
 	});
 
 	it('should retain opponent knowledge after switches', () => {

@@ -21,6 +21,7 @@ const {
 	MessagePackFrameWriter,
 	encodeMessagePackFrame,
 } = require('./../../../dist/sim/battle-worker-protocol');
+const { GEN9_RANDOM_BATTLE_TENSOR_MANIFEST } = require('./../../../dist/sim/battle-tensors');
 
 const BATTLE_SEED = '1,2,3,4';
 const TEAM_SEEDS = { p1: '5,6,7,8', p2: '9,10,11,12' };
@@ -240,7 +241,34 @@ describe('Pokezero battle worker', () => {
 				}
 				assert.equal(target.initial.moves.length, target.publicKnowledge.initial.moves.length);
 				assert.equal(target.current.moves.length, target.publicKnowledge.current.pp.length);
+				const species = new Set(GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species);
+				assert(species.has(target.initial.species), `${target.initial.species} must be in vocabulary`);
+				assert(species.has(target.current.species), `${target.current.species} must be in vocabulary`);
 			}
+		} finally {
+			worker.close();
+		}
+	});
+
+	it('should normalize a privileged opponent target with a cosmetic forme to its base species', async () => {
+		// Team seed 19,20,21,22 deterministically deals Sawsbuck-Summer into the p2 team.
+		const { worker, messages } = createWorker({ maxBattles: 1, simulatorCommit: TEST_COMMIT });
+		try {
+			worker.receive({
+				type: 'start', battleId: 'cosmetic-forme', battleSeed: BATTLE_SEED,
+				teamSeeds: { p1: TEAM_SEEDS.p1, p2: '19,20,21,22' }, trainingTargets: true,
+			});
+			await waitFor(
+				messages,
+				current => decisionsFor(current, 'cosmetic-forme').length === 2,
+				'initial decisions for cosmetic-forme battle'
+			);
+			const decision = decisionsFor(messages, 'cosmetic-forme').find(entry => entry.side === 'p1');
+			const target = decision.privilegedTargets.opponent.find(entry => entry.initial.species === 'sawsbuck');
+			assert(target, 'expected a Sawsbuck-Summer opponent to normalize to the sawsbuck token');
+			assert.equal(target.current.species, 'sawsbuck');
+			const species = new Set(GEN9_RANDOM_BATTLE_TENSOR_MANIFEST.vocabularies.species);
+			assert(!species.has('sawsbucksummer'), 'the cosmetic forme itself must not be a vocabulary token');
 		} finally {
 			worker.close();
 		}
